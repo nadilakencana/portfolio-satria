@@ -123,6 +123,7 @@ export const portfolioItems = [
           { label: "DATA STUDIO", url: "#" },
           { label: "MEDIUM", url: "#" },
         ],
+        images: ["/images/image10.png"],
       },
       {
         id: "p2",
@@ -144,6 +145,7 @@ export const portfolioItems = [
           { label: "TABLEAU", url: "#" },
           { label: "MEDIUM", url: "#" },
         ],
+        images: ["/images/image17.png"],
       },
       {
         id: "p3",
@@ -163,6 +165,7 @@ export const portfolioItems = [
           { label: "GITHUB", url: "#" },
           { label: "MEDIUM", url: "#" },
         ],
+        images: ["/images/image25.jpg"],
       },
       {
         id: "p4",
@@ -184,6 +187,7 @@ export const portfolioItems = [
           { label: "TABLEAU", url: "#" },
           { label: "MEDIUM", url: "#" },
         ],
+        images: ["/images/image19.png"],
       },
       {
         id: "p5",
@@ -205,6 +209,7 @@ export const portfolioItems = [
           { label: "TABLEAU", url: "#" },
           { label: "MEDIUM", url: "#" },
         ],
+        images: ["/images/image18.png"],
       },
       {
         id: "p6",
@@ -224,6 +229,7 @@ export const portfolioItems = [
           "Data Visualization",
         ],
         links: [],
+        images: ["/images/image23.jpg", "/images/image26 2.jpg"],
       },
     ],
     dampakStrategis:

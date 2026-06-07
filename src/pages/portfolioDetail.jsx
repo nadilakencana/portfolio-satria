@@ -177,9 +177,44 @@ const PortfolioDetail = () => {
                         </div>
                       )}
                     </div>
-                    <div style={{ background: "#f0f4f8", borderRadius: 12, minHeight: 180, display: "flex", alignItems: "center", justifyContent: "center", color: "#aaa", fontSize: "0.9rem" }}>
-                      📊 Dashboard Preview
+                    <div>
+                      {project.images && project.images.length > 0 ? (
+                        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                          {project.images.map((imgSrc, idx) => (
+                            <motion.img
+                              key={idx}
+                              src={imgSrc}
+                              alt={`${project.name} screenshot ${idx + 1}`}
+                              initial={{ opacity: 0, scale: 0.97 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: idx * 0.1 }}
+                              style={{
+                                width: "100%",
+                                borderRadius: 12,
+                                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                                objectFit: "cover",
+                                border: "1px solid #eee",
+                              }}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div style={{
+                          background: "#f0f4f8",
+                          borderRadius: 12,
+                          minHeight: 180,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#bbb",
+                          fontSize: "0.85rem",
+                          border: "2px dashed #ddd"
+                        }}>
+                          📊 Dashboard Preview
+                        </div>
+                      )}
                     </div>
+
                   </div>
                 </Card>
               ))}

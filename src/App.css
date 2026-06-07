@@ -218,6 +218,99 @@ ul {
   font-size: 0.85rem;
 }
 
+/* ===== HAMBURGER & MOBILE NAV ===== */
+@media (max-width: 768px) {
+  .nav-desktop-links {
+    display: none !important;
+  }
+
+  .hamburger-btn {
+    display: flex !important;
+  }
+
+  /* Detail Page Mobile */
+  .detail-wrapper {
+    padding: 20px 16px 60px;
+  }
+
+  /* Grid 2 kolom jadi 1 kolom di mobile */
+  [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  [style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  [style*="grid-template-columns: repeat(auto-fit"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Banner mobile */
+  .banner-container {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .banner-name {
+    font-size: 2rem !important;
+  }
+
+  .banner-buttons {
+    justify-content: center;
+  }
+
+  .banner-stats {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .image-wrapper {
+    width: 220px !important;
+    height: 220px !important;
+    margin: 0 auto;
+  }
+
+  /* Services & Portfolio grid */
+  .services-grid,
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Experience grid */
+  .experience-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Contact */
+  .contact-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Table scroll on mobile */
+  table {
+    font-size: 0.78rem !important;
+  }
+
+  /* Card padding lebih kecil di mobile */
+  [style*="padding: \"28px 30px\""] {
+    padding: 18px 16px !important;
+  }
+
+  /* Header title lebih kecil */
+  [style*="fontSize: \"2.2rem\""] {
+    font-size: 1.5rem !important;
+  }
+}
+
+
 /* ===== SECTIONS COMMON ===== */
 .section-header {
   text-align: center;
