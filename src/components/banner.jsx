@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { profileData } from "../data/portfolioData";
+import CVRequestModal from "./cvRequestModal";
 
 const Banner = () => {
+  const [cvModalOpen, setCvModalOpen] = useState(false);
+
   return (
     <section id="home" className="banner">
       <div className="banner-container">
@@ -21,6 +24,7 @@ const Banner = () => {
               className="btn-primary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => setCvModalOpen(true)}
             >
               Download CV
             </motion.button>
@@ -66,6 +70,8 @@ const Banner = () => {
           </div>
         ))}
       </motion.div>
+
+      <CVRequestModal isOpen={cvModalOpen} onClose={() => setCvModalOpen(false)} />
     </section>
   );
 };

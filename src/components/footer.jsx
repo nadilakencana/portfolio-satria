@@ -12,7 +12,7 @@ const Footer = () => {
     >
       <div className="footer-container">
         <div className="footer-logo">Satria<span>.</span></div>
-        <p>&copy; 2024 Satria Bagaskara. All rights reserved.</p>
+        <p>&copy; 2026 Satria Bagaskara. All rights reserved.</p>
         <div className="footer-links">
           <a href="#home">Home</a>
           <a href="#services">Services</a>

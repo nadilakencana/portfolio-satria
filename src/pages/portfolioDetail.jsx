@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { portfolioItems } from "../data/portfolioData";
-import { FaGithub, FaExternalLinkAlt, FaChartBar, FaNewspaper, FaDatabase, FaArrowLeft } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt, FaChartBar, FaNewspaper, FaDatabase, FaArrowLeft, FaCamera } from "react-icons/fa";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
@@ -327,6 +327,30 @@ const PortfolioDetail = () => {
                       style={{ background: "#f8f9fa", borderRadius: 10, padding: "20px 16px", textAlign: "center", borderTop: `3px solid ${item.color}` }}>
                       <h4 style={{ color: "#1a1a2e", fontSize: "0.95rem", marginBottom: 5 }}>{p.name}</h4>
                       <p style={{ color: "#888", fontSize: "0.8rem" }}>{p.location}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </Card>
+
+              {/* Dokumentasi Kunjungan & Evaluasi Klien */}
+              <Card>
+                <SectionTitle color={item.color}>
+                  <FaCamera style={{ marginRight: 10 }} />
+                  Dokumentasi Kunjungan & Evaluasi Klien
+                </SectionTitle>
+                <p style={{ color: "#555", lineHeight: 1.8, marginBottom: 20 }}>
+                  Melakukan <i>Monitoring & Evaluasi (MonEv)</i> secara langsung ke lapangan untuk memastikan kelancaran operasional dan menampung <b>feedback</b> pengembangan.
+                </p>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  {item.documentation.map((doc, i) => (
+                    <motion.div key={i}
+                      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                      style={{ position: "relative", borderRadius: 12, overflow: "hidden", height: 220 }}>
+                      <img src={doc.image} alt={doc.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "32px 16px 14px", background: "linear-gradient(to top, rgba(0,0,0,0.75), transparent)", color: "white" }}>
+                        <p style={{ fontWeight: 700, fontSize: "0.92rem", marginBottom: 2 }}>{doc.title}</p>
+                        <p style={{ fontSize: "0.8rem", opacity: 0.9 }}>{doc.date}</p>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
