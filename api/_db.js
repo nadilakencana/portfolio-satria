@@ -1,7 +1,10 @@
 const { Pool } = require("pg");
 
 const connectionString =
-  process.env.POSTGRES_URL || process.env.DATABASE_URL || "postgres://user:pass@localhost:5432/placeholder";
+  process.env.POSTGRES_URL ||
+  process.env.POSTGRES_URL_POSTGRES_URL ||
+  process.env.DATABASE_URL ||
+  "postgres://user:pass@localhost:5432/placeholder";
 
 const isLocal = /localhost|127\.0\.0\.1/.test(connectionString);
 
