@@ -1140,3 +1140,156 @@ ul {
   line-height: 1.7;
   margin-bottom: 20px;
 }
+
+/* ===== ADMIN PAGE ===== */
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  padding: 20px;
+}
+
+.admin-login-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.admin-login-box h2 {
+  color: #1a1a2e;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.admin-login-box input {
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.admin-login-box input:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.admin-error {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin: -4px 0 0;
+}
+
+.admin-page {
+  min-height: 100vh;
+  background: #fafafa;
+  padding: 40px 24px;
+}
+
+.admin-header {
+  max-width: 1100px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-header h2 {
+  color: #1a1a2e;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.admin-table-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+  white-space: nowrap;
+}
+
+.admin-table th {
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.admin-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.admin-status-pending {
+  background: #fff4e5;
+  color: #ff9800;
+}
+
+.admin-status-approved {
+  background: #e8f9ee;
+  color: #22c55e;
+}
+
+.admin-status-rejected {
+  background: #fdecea;
+  color: #e74c3c;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-btn-approve,
+.admin-btn-reject {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-btn-approve {
+  background: #22c55e;
+  color: #fff;
+}
+
+.admin-btn-reject {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.admin-btn-approve:disabled,
+.admin-btn-reject:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

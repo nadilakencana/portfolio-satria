@@ -1,5 +1,6 @@
 const { Resend } = require("resend");
 const jwt = require("jsonwebtoken");
+const { sql, ensureTable } = require("./_db");
 
 const resend = new Resend(process.env.RESEND_API_KEY || "re_dev_placeholder");
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,6 +22,20 @@ module.exports = async function handler(req, res) {
     email: String(email).trim().slice(0, 200),
     message: String(message || "").trim().slice(0, 1000),
   };
+
+  let row;
+  try {
+    await ensureTable();
+    [row] = await sql`
+      INSERT INTO cv_requests (name, email, message)
+      VALUES (${payload.name}, ${payload.email}, ${payload.message})
+      RETURNING id
+    `;
+  } catch (err) {
+    console.error("request-cv db error:", err);
+    return res.status(500).json({ error: "Gagal menyimpan permintaan. Coba lagi nanti." });
+  }
+  payload.id = row.id;
 
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
 

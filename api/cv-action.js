@@ -1,9 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const { Resend } = require("resend");
 const jwt = require("jsonwebtoken");
-
-const resend = new Resend(process.env.RESEND_API_KEY || "re_dev_placeholder");
+const { sql, ensureTable } = require("./_db");
+const { sendCvEmail } = require("./_cv-mailer");
 
 module.exports = async function handler(req, res) {
   const { action, token } = req.query;
@@ -15,7 +12,32 @@ module.exports = async function handler(req, res) {
     return sendPage(res, 400, "Link Tidak Valid", "Link ini tidak valid atau sudah kedaluwarsa.", "#e74c3c");
   }
 
+  let existing;
+  try {
+    await ensureTable();
+    [existing] = await sql`SELECT status FROM cv_requests WHERE id = ${payload.id}`;
+  } catch (err) {
+    console.error("cv-action db error:", err);
+    return sendPage(res, 500, "Terjadi Kesalahan", "Gagal mengakses database. Coba lagi nanti.", "#e74c3c");
+  }
+
+  if (existing && existing.status !== "pending") {
+    return sendPage(
+      res,
+      200,
+      "Sudah Diproses",
+      `Permintaan ini sudah diproses sebelumnya dengan status "${existing.status}".`,
+      "#999"
+    );
+  }
+
   if (action === "reject") {
+    try {
+      await sql`UPDATE cv_requests SET status = 'rejected', updated_at = now() WHERE id = ${payload.id}`;
+    } catch (err) {
+      console.error("cv-action reject db error:", err);
+      return sendPage(res, 500, "Terjadi Kesalahan", "Gagal memperbarui status. Coba lagi nanti.", "#e74c3c");
+    }
     return sendPage(
       res,
       200,
@@ -26,40 +48,15 @@ module.exports = async function handler(req, res) {
   }
 
   if (action === "approve") {
-    const cvPath = path.join(process.cwd(), "public", "cv", "Satria_Bagaskara_CV.pdf");
-
-    let attachments;
     try {
-      const cvBuffer = fs.readFileSync(cvPath);
-      attachments = [{ filename: "Satria_Bagaskara_CV.pdf", content: cvBuffer.toString("base64") }];
-    } catch (err) {
-      console.error("cv-action: CV file not found at", cvPath, err);
-      return sendPage(res, 500, "CV Tidak Ditemukan", "File CV belum tersedia di server. Unggah file CV terlebih dahulu.", "#e74c3c");
-    }
-
-    const html = `
-      <div style="font-family: Segoe UI, sans-serif; max-width: 480px; margin: 0 auto; color: #333;">
-        <h2 style="color: #1a1a2e;">Hi ${escapeHtml(payload.name)},</h2>
-        <p>Terima kasih sudah mengunjungi portfolio saya. Berikut saya lampirkan CV terbaru saya.</p>
-        <p>Semoga bermanfaat dan sampai jumpa!</p>
-        <p style="margin-top: 24px;">Salam,<br/>Satria Bagaskara</p>
-      </div>
-    `;
-
-    try {
-      const { error } = await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
-        to: payload.email,
-        subject: "Terima kasih telah mengunjungi portfolio Satria Bagaskara",
-        html,
-        attachments,
-      });
+      const { error } = await sendCvEmail(payload.name, payload.email);
 
       if (error) {
         console.error("cv-action approve resend error:", error);
         return sendPage(res, 500, "Gagal Mengirim", "Terjadi kesalahan saat mengirim CV. Coba lagi.", "#e74c3c");
       }
 
+      await sql`UPDATE cv_requests SET status = 'approved', updated_at = now() WHERE id = ${payload.id}`;
       return sendPage(res, 200, "CV Terkirim", `CV berhasil dikirim ke ${payload.email}.`, "#22c55e");
     } catch (err) {
       console.error("cv-action approve error:", err);
