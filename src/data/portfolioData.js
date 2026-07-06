@@ -59,7 +59,7 @@ export const portfolioItems = [
     title: "Data Analyst",
     company: "Bootcamp MySkill",
     color: "#ef7e27ff",
-    period: "2023",
+    period: "03 December 2025, 16 January 2026",
     subtitle: "DATA ANALYST PORTFOLIO",
     tagline: "Bekerja dengan data, memberikan wawasan, menciptakan perubahan.",
     description:

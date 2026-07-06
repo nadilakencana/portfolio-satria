@@ -47,8 +47,12 @@ const Contact = () => {
             </div>
           </div>
           <div className="contact-social">
-            <a href={contactData.social.github}><FaGithub /></a>
-            <a href={contactData.social.linkedin}><FaLinkedin /></a>
+            <a href={contactData.social.github} target="_blank" rel="noopener noreferrer">
+              <FaGithub />
+            </a>
+            <a href={contactData.social.linkedin} target="_blank" rel="noopener noreferrer">
+              <FaLinkedin />
+            </a>
           </div>
         </motion.div>
 

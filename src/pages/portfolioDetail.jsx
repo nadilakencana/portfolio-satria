@@ -167,7 +167,7 @@ const PortfolioDetail = () => {
                       {project.links.length > 0 && (
                         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 20 }}>
                           {project.links.map((link, j) => (
-                            <motion.a key={j} href={link.url}
+                            <motion.a key={j} href={link.url} target="_blank" rel="noopener noreferrer"
                               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                               style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", background: "#1a1a2e", color: "white", borderRadius: 8, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}>
                               {linkIconMap[link.label] || <FaExternalLinkAlt />}
@@ -252,7 +252,7 @@ const PortfolioDetail = () => {
               {/* Main Links */}
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 {item.links.map((link, i) => (
-                  <motion.a key={i} href={link.url}
+                  <motion.a key={i} href={link.url} target="_blank" rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                     style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 24px", background: "#1a1a2e", color: "white", borderRadius: 8, fontWeight: 600, textDecoration: "none" }}>
                     {linkIconMap[link.label] || <FaExternalLinkAlt />}
@@ -409,7 +409,7 @@ const PortfolioDetail = () => {
               {/* Links */}
               <div style={{ display: "flex", gap: 12 }}>
                 {item.links.map((link, i) => (
-                  <motion.a key={i} href={link.url}
+                  <motion.a key={i} href={link.url} target="_blank" rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                     style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 24px", background: item.color, color: "white", borderRadius: 8, fontWeight: 600, textDecoration: "none" }}>
                     <FaExternalLinkAlt />
