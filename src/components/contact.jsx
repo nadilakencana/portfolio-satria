@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { contactData } from "../data/portfolioData";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Contact = () => {
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const subject = encodeURIComponent(form.subject || `Message from ${form.name}`);
+    const body = encodeURIComponent(
+      `${form.message}\n\nFrom: ${form.name} (${form.email})`
+    );
+    window.location.href = `mailto:${contactData.email}?subject=${subject}&body=${body}`;
+  };
+
   return (
     <section id="contact" className="contact">
       <motion.div
@@ -58,15 +73,16 @@ const Contact = () => {
 
         <motion.form
           className="contact-form"
+          onSubmit={handleSubmit}
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <input type="text" placeholder="Your Name" />
-          <input type="email" placeholder="Your Email" />
-          <input type="text" placeholder="Subject" />
-          <textarea placeholder="Your Message" rows="5"></textarea>
+          <input type="text" name="name" placeholder="Your Name" value={form.name} onChange={handleChange} required />
+          <input type="email" name="email" placeholder="Your Email" value={form.email} onChange={handleChange} required />
+          <input type="text" name="subject" placeholder="Subject" value={form.subject} onChange={handleChange} />
+          <textarea name="message" placeholder="Your Message" rows="5" value={form.message} onChange={handleChange} required></textarea>
           <motion.button
             type="submit"
             className="btn-primary"

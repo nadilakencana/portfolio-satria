@@ -28,13 +28,14 @@ const Banner = () => {
             >
               Download CV
             </motion.button>
-            <motion.button
+            <motion.a
               className="btn-secondary"
+              href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Contact
-            </motion.button>
+            </motion.a>
           </div>
         </motion.div>
 

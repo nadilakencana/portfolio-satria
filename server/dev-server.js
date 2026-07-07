@@ -18,7 +18,7 @@ app.get("/api/admin-requests", adminRequests);
 app.post("/api/admin-approve", adminApprove);
 app.post("/api/admin-reject", adminReject);
 
-const PORT = process.env.API_PORT || 3001;
+const PORT = process.env.API_PORT || 3002;
 app.listen(PORT, () => {
   console.log(`API dev server running on http://localhost:${PORT}`);
 });

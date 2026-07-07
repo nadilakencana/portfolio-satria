@@ -382,7 +382,7 @@ export const portfolioItems = [
 
 export const contactData = {
   email: "satria.bagaskara.05@gmail.com",
-  phone: "+62 812-3456-7890",
+  phone: "+62 895-0925-3782",
   location: "Jakarta, Indonesia",
   social: {
     github: "https://github.com/bagaskara0506",
