@@ -7,15 +7,22 @@ const Admin = () => {
   const [loginError, setLoginError] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
 
+  const [activeTab, setActiveTab] = useState("cv"); // cv | contact
+
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
   const [actionId, setActionId] = useState(null);
   const [actionError, setActionError] = useState("");
 
+  const [contactRows, setContactRows] = useState([]);
+  const [contactLoading, setContactLoading] = useState(false);
+  const [contactError, setContactError] = useState("");
+
   const handleLogout = useCallback(() => {
     localStorage.removeItem("cv_admin_token");
     setToken("");
     setRows([]);
+    setContactRows([]);
   }, []);
 
   const fetchRows = useCallback(
@@ -42,9 +49,36 @@ const Admin = () => {
     [handleLogout]
   );
 
+  const fetchContactRows = useCallback(
+    async (tok) => {
+      setContactLoading(true);
+      setContactError("");
+      try {
+        const res = await fetch("/api/admin-contact-messages", {
+          headers: { Authorization: `Bearer ${tok}` },
+        });
+        if (res.status === 401) {
+          handleLogout();
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Gagal memuat data.");
+        setContactRows(data.rows);
+      } catch (err) {
+        setContactError(err.message);
+      } finally {
+        setContactLoading(false);
+      }
+    },
+    [handleLogout]
+  );
+
   useEffect(() => {
-    if (token) fetchRows(token);
-  }, [token, fetchRows]);
+    if (token) {
+      fetchRows(token);
+      fetchContactRows(token);
+    }
+  }, [token, fetchRows, fetchContactRows]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -120,73 +154,134 @@ const Admin = () => {
   return (
     <div className="admin-page">
       <div className="admin-header">
-        <h2>CV Requests</h2>
+        <h2>{activeTab === "cv" ? "CV Requests" : "Contact Messages"}</h2>
         <button className="btn-secondary" onClick={handleLogout}>
           Logout
         </button>
       </div>
 
-      {actionError && <p className="admin-error">{actionError}</p>}
+      <div className="admin-tabs">
+        <button
+          className={`admin-tab ${activeTab === "cv" ? "admin-tab-active" : ""}`}
+          onClick={() => setActiveTab("cv")}
+        >
+          CV Requests
+        </button>
+        <button
+          className={`admin-tab ${activeTab === "contact" ? "admin-tab-active" : ""}`}
+          onClick={() => setActiveTab("contact")}
+        >
+          Contact Messages
+        </button>
+      </div>
 
-      {loading ? (
-        <p>Memuat...</p>
-      ) : (
-        <div className="admin-table-wrapper">
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>Pesan</th>
-                <th>Status</th>
-                <th>Tanggal</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id}>
-                  <td>{row.name}</td>
-                  <td>{row.email}</td>
-                  <td>{row.message || "-"}</td>
-                  <td>
-                    <span className={`admin-status admin-status-${row.status}`}>{row.status}</span>
-                  </td>
-                  <td>{new Date(row.created_at).toLocaleString("id-ID")}</td>
-                  <td>
-                    {row.status === "pending" ? (
-                      <div className="admin-actions">
-                        <button
-                          className="admin-btn-approve"
-                          disabled={actionId === row.id}
-                          onClick={() => handleAction(row.id, "approve")}
-                        >
-                          Approve
-                        </button>
-                        <button
-                          className="admin-btn-reject"
-                          disabled={actionId === row.id}
-                          onClick={() => handleAction(row.id, "reject")}
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    ) : (
-                      "-"
-                    )}
-                  </td>
-                </tr>
-              ))}
-              {rows.length === 0 && (
-                <tr>
-                  <td colSpan={6} style={{ textAlign: "center", padding: "20px" }}>
-                    Belum ada permintaan CV.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+      {activeTab === "cv" && (
+        <>
+          {actionError && <p className="admin-error">{actionError}</p>}
+
+          {loading ? (
+            <p>Memuat...</p>
+          ) : (
+            <div className="admin-table-wrapper">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Pesan</th>
+                    <th>Status</th>
+                    <th>Tanggal</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((row) => (
+                    <tr key={row.id}>
+                      <td>{row.name}</td>
+                      <td>{row.email}</td>
+                      <td>{row.message || "-"}</td>
+                      <td>
+                        <span className={`admin-status admin-status-${row.status}`}>{row.status}</span>
+                      </td>
+                      <td>{new Date(row.created_at).toLocaleString("id-ID")}</td>
+                      <td>
+                        {row.status === "pending" ? (
+                          <div className="admin-actions">
+                            <button
+                              className="admin-btn-approve"
+                              disabled={actionId === row.id}
+                              onClick={() => handleAction(row.id, "approve")}
+                            >
+                              Approve
+                            </button>
+                            <button
+                              className="admin-btn-reject"
+                              disabled={actionId === row.id}
+                              onClick={() => handleAction(row.id, "reject")}
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        ) : (
+                          "-"
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                  {rows.length === 0 && (
+                    <tr>
+                      <td colSpan={6} style={{ textAlign: "center", padding: "20px" }}>
+                        Belum ada permintaan CV.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
+      )}
+
+      {activeTab === "contact" && (
+        <>
+          {contactError && <p className="admin-error">{contactError}</p>}
+
+          {contactLoading ? (
+            <p>Memuat...</p>
+          ) : (
+            <div className="admin-table-wrapper">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Pesan</th>
+                    <th>Tanggal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {contactRows.map((row) => (
+                    <tr key={row.id}>
+                      <td>{row.name}</td>
+                      <td>{row.email}</td>
+                      <td>{row.subject || "-"}</td>
+                      <td>{row.message}</td>
+                      <td>{new Date(row.created_at).toLocaleString("id-ID")}</td>
+                    </tr>
+                  ))}
+                  {contactRows.length === 0 && (
+                    <tr>
+                      <td colSpan={5} style={{ textAlign: "center", padding: "20px" }}>
+                        Belum ada pesan masuk.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

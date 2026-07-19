@@ -39,4 +39,21 @@ function ensureTable() {
   return ensured;
 }
 
-module.exports = { sql, ensureTable };
+let ensuredContact = null;
+function ensureContactTable() {
+  if (!ensuredContact) {
+    ensuredContact = sql`
+      CREATE TABLE IF NOT EXISTS contact_messages (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        subject TEXT,
+        message TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      )
+    `;
+  }
+  return ensuredContact;
+}
+
+module.exports = { sql, ensureTable, ensureContactTable };

@@ -17,28 +17,28 @@ export const servicesData = [
     icon: "data",
     title: "Data Analysis",
     description:
-      "Analisis data menggunakan Python, SQL, Tableau, Power BI & Data Studio untuk insight strategis.",
+      "Analisis data menggunakan Python, SQL, Tableau, Power BI & Data Studio untuk mendapatkan Key Insight & Recommendation/Solution.",
   },
   {
     id: 2,
     icon: "support",
     title: "IT App Support",
     description:
-      "Implementasi & monitoring sistem informasi kesehatan (SIMRS, SIMKLINIK, SIMPUS) di 559 fasyankes.",
+      "Handling Maintenance, Implementasi & monitoring sistem informasi kesehatan (SIMRS, SIMKLINIK, SIMPUS) di 559 fasyankes.",
   },
   {
     id: 3,
     icon: "testing",
     title: "QA & Tech Writer",
     description:
-      "Manual testing UI/UX, API testing dengan Postman, validasi database, dan pembuatan dokumentasi teknis.",
+      "Pengujian fungsional sistem secara manual, pengujian API dengan Postman, validasi data pada database, serta penyusunan dokumentasi teknis.",
   },
   {
     id: 4,
     icon: "it",
     title: "IT Support",
     description:
-      "Helpdesk, manajemen jaringan, infrastruktur komunikasi, dan integrasi sistem di rumah sakit.",
+      "Dukungan Teknis IT, Manajemen Jaringan, Infrastruktur IT & Komunikasi, dan Integrasi Sistem di Rumah Sakit.",
   },
 ];
 
@@ -59,7 +59,7 @@ export const portfolioItems = [
     title: "Data Analyst",
     company: "Bootcamp MySkill",
     color: "#ef7e27ff",
-    period: "03 December 2025, 16 January 2026",
+    period: "03 December 2025 - 16 Januari 2026",
     subtitle: "DATA ANALYST PORTFOLIO",
     tagline: "Bekerja dengan data, memberikan wawasan, menciptakan perubahan.",
     description:
@@ -236,8 +236,8 @@ export const portfolioItems = [
       "Penguasaan multi-platform visualisasi (Tableau, Power BI, Data Studio) memungkinkan saya untuk menyesuaikan solusi dengan kebutuhan infrastruktur perusahaan yang berbeda-beda.",
     links: [
       { label: "GITHUB", url: "https://github.com/bagaskara0506" },
-      { label: "TABLEAU", url: "#" },
-      { label: "MEDIUM", url: "#" },
+      { label: "TABLEAU", url: "https://public.tableau.com/app/profile/satria.bagaskara4685/vizzes" },
+      { label: "MEDIUM", url: "https://medium.com/@satriadevopsindonesia" },
     ],
   },
   {
@@ -265,7 +265,7 @@ export const portfolioItems = [
         desc: "Pemantauan Stabilitas Server & Sistem Faskes",
       },
     ],
-    coreSystems: ["SIMRS (Rumah Sakit)", "SIMKLINIK (Klinik)", "SIMPUS (Puskesmas)", "Aplikasi Praktek Mandiri"],
+    coreSystems: ["SIMRS (Rumah Sakit)", "SIMKLINIK (Klinik)", "SIMPUS (Puskesmas)", "Praktek Dokter Mandiri"],
     manajemenInsiden: [
       "Penanganan kendala teknis (troubleshooting) sistem secara cepat dan tepat untuk ratusan fasilitas pelayanan kesehatan.",
       "Melakukan kunjungan klien/vicon secara berkala untuk koordinasi operasional, evaluasi sistem, dan demonstrasi fitur terbaru.",
@@ -296,10 +296,10 @@ export const portfolioItems = [
     ],
     links: [],
     documentation: [
-      { image: "/images/image26.jpg", title: "MonEv RSUD Gema Santi Nusa Penida", date: "04 – 06 Mei 2026" },
-      { image: "/images/image22.jpg", title: "MonEv RST Dompet Dhuafa", date: "14 April 2026" },
-      { image: "/images/image28.jpg", title: "Monev Klinik Hanuro", date: "29 April 2026" },
-      { image: "/images/image30.png", title: "Monev KPRI Kita", date: "11 Mei 2026" },
+      { image: "/images/image28.jpg", title: "MonEv RSUD Gema Santi Nusa Penida", date: "04 – 06 Mei 2026" },
+      { image: "/images/image26.jpg", title: "MonEv RST Dompet Dhuafa", date: "14 April 2026" },
+      { image: "/images/image30.png", title: "Monev Klinik Hanuro", date: "29 April 2026" },
+      { image: "/images/image22.jpg", title: "Monev KPRI Kita", date: "11 Mei 2026" },
     ],
   },
   {
@@ -307,7 +307,7 @@ export const portfolioItems = [
     title: "QA & Tech Writer",
     company: "Tokokupon (Gemogi)",
     color: "#e91e63",
-    period: "1 Juli 2024 - 30 September 2024",
+    period: "1 Juli 2024 - 31 September 2024",
     subtitle: "Ensuring Seamless Digital Ecosystems",
     lokasi: "PJS Tower, Lantai 7, Jakarta Barat",
     description:

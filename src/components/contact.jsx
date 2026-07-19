@@ -5,18 +5,37 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaGithub, FaLinkedin } from "react
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(form.subject || `Message from ${form.name}`);
-    const body = encodeURIComponent(
-      `${form.message}\n\nFrom: ${form.name} (${form.email})`
-    );
-    window.location.href = `mailto:${contactData.email}?subject=${subject}&body=${body}`;
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Terjadi kesalahan, coba lagi.");
+      }
+
+      setStatus("success");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err.message);
+    }
   };
 
   return (
@@ -83,13 +102,18 @@ const Contact = () => {
           <input type="email" name="email" placeholder="Your Email" value={form.email} onChange={handleChange} required />
           <input type="text" name="subject" placeholder="Subject" value={form.subject} onChange={handleChange} />
           <textarea name="message" placeholder="Your Message" rows="5" value={form.message} onChange={handleChange} required></textarea>
+
+          {status === "success" && <p style={{ color: "#22c55e", fontSize: "0.9rem" }}>Pesan berhasil dikirim, terima kasih!</p>}
+          {status === "error" && <p style={{ color: "#e74c3c", fontSize: "0.9rem" }}>{errorMsg}</p>}
+
           <motion.button
             type="submit"
             className="btn-primary"
+            disabled={status === "loading"}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Send Message
+            {status === "loading" ? "Mengirim..." : "Send Message"}
           </motion.button>
         </motion.form>
       </div>

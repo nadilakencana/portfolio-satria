@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const navLinks = [
+  { href: "/", label: "Home", section: "home" },
+  { href: "/#services", label: "Services", section: "services" },
+  { href: "/#experience", label: "Experience", section: "experience" },
+  { href: "/#portfolio", label: "Portfolio", section: "portfolio" },
+  { href: "/#contact", label: "Contact", section: "contact" },
+];
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -11,16 +20,31 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Highlight menu navbar sesuai section yang sedang aktif di viewport
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.getElementById(link.section))
+      .filter(Boolean);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   // Tutup menu kalau klik link
   const handleLinkClick = () => setMenuOpen(false);
-
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/#services", label: "Services" },
-    { href: "/#experience", label: "Experience" },
-    { href: "/#portfolio", label: "Portfolio" },
-    { href: "/#contact", label: "Contact" },
-  ];
 
   return (
     <>
@@ -68,18 +92,19 @@ const Navbar = () => {
           }}
             className="nav-desktop-links"
           >
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  style={{ fontWeight: 500, color: "#555", textDecoration: "none", transition: "color 0.3s" }}
-                  onMouseEnter={(e) => e.target.style.color = "#ff6b35"}
-                  onMouseLeave={(e) => e.target.style.color = "#555"}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.section;
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className={`nav-link ${isActive ? "nav-link-active" : ""}`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Hamburger Button - Mobile Only */}
@@ -181,36 +206,40 @@ const Navbar = () => {
               ✕
             </motion.button>
 
-            {navLinks.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                onClick={handleLinkClick}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.07 }}
-                style={{
-                  padding: "14px 16px",
-                  borderRadius: 10,
-                  color: "#333",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  fontSize: "1rem",
-                  transition: "all 0.2s",
-                  display: "block",
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = "#fff5f0";
-                  e.target.style.color = "#ff6b35";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = "transparent";
-                  e.target.style.color = "#333";
-                }}
-              >
-                {link.label}
-              </motion.a>
-            ))}
+            {navLinks.map((link, i) => {
+              const isActive = activeSection === link.section;
+              return (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={handleLinkClick}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.07 }}
+                  style={{
+                    padding: "14px 16px",
+                    borderRadius: 10,
+                    color: isActive ? "#ff6b35" : "#333",
+                    background: isActive ? "#fff5f0" : "transparent",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    fontSize: "1rem",
+                    transition: "all 0.2s",
+                    display: "block",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = "#fff5f0";
+                    e.target.style.color = "#ff6b35";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = isActive ? "#fff5f0" : "transparent";
+                    e.target.style.color = isActive ? "#ff6b35" : "#333";
+                  }}
+                >
+                  {link.label}
+                </motion.a>
+              );
+            })}
 
             
           </motion.div>
