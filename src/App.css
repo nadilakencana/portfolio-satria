@@ -516,6 +516,89 @@ ul {
   align-self: flex-start;
 }
 
+/* ===== BLOG ===== */
+.blog {
+  padding: 100px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.blog-empty {
+  text-align: center;
+  color: #999;
+}
+
+.blog-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card-image {
+  aspect-ratio: 16 / 9;
+  background: #f3f3f3;
+  overflow: hidden;
+}
+
+.blog-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.blog-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.blog-card-date {
+  color: #ff6b35;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.blog-card-body h3 {
+  font-size: 1.15rem;
+  color: #1a1a2e;
+}
+
+.blog-card-body p {
+  color: #777;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card-link {
+  margin-top: auto;
+  color: #ff6b35;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== CONTACT ===== */
 .contact {
   padding: 100px 20px;
@@ -1368,4 +1451,275 @@ ul {
 .admin-btn-reject:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* ===== ADMIN BLOG ===== */
+.admin-blog-toolbar {
+  max-width: 1100px;
+  margin: 0 auto 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-blog-filters {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.admin-search,
+.admin-date-filter input {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: #fff;
+  color: #333;
+}
+
+.admin-search {
+  flex: 1;
+  min-width: 220px;
+  max-width: 360px;
+}
+
+.admin-search:focus,
+.admin-date-filter input:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.admin-date-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+}
+
+.admin-btn-reset {
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  color: #555;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-btn-add {
+  height: 40px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.admin-error-block {
+  max-width: 1100px;
+  margin: 0 auto 12px;
+}
+
+.admin-result-count {
+  max-width: 1100px;
+  margin: 0 auto 8px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.admin-blog-table {
+  table-layout: fixed;
+  min-width: 900px;
+}
+
+.admin-blog-table td {
+  vertical-align: middle;
+  white-space: normal;
+  color: #333;
+}
+
+.admin-blog-table tbody tr:hover {
+  background: #fffaf7;
+}
+
+.admin-blog-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.admin-blog-thumb-empty {
+  background: #f3f3f3;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-blog-title {
+  font-weight: 600;
+  color: #1a1a2e;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.admin-blog-link {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 0.85rem;
+  vertical-align: middle;
+}
+
+.admin-blog-link:hover {
+  text-decoration: underline;
+}
+
+.admin-blog-desc {
+  color: #666;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.admin-date-cell {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  font-size: 0.85rem;
+}
+
+.admin-date-cell small {
+  color: #999;
+  font-size: 0.75rem;
+}
+
+.admin-empty-cell {
+  text-align: center !important;
+  padding: 28px !important;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .admin-search {
+    max-width: none;
+    flex-basis: 100%;
+  }
+  .admin-btn-add {
+    width: 100%;
+  }
+}
+
+.admin-btn-edit {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #3b82f6;
+  color: #fff;
+}
+
+.admin-btn-edit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 2000;
+}
+
+.admin-modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.admin-modal h3 {
+  color: #1a1a2e;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.admin-modal label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-modal input,
+.admin-modal textarea {
+  padding: 10px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 400;
+}
+
+.admin-modal input:focus,
+.admin-modal textarea:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.admin-modal-preview {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.admin-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 6px;
 }

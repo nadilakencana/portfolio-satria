@@ -9,6 +9,8 @@ const adminApprove = require("../api/admin-approve");
 const adminReject = require("../api/admin-reject");
 const contact = require("../api/contact");
 const adminContactMessages = require("../api/admin-contact-messages");
+const blogs = require("../api/blogs");
+const adminBlogs = require("../api/admin-blogs");
 
 const app = express();
 app.use(express.json());
@@ -21,6 +23,8 @@ app.post("/api/admin-approve", adminApprove);
 app.post("/api/admin-reject", adminReject);
 app.post("/api/contact", contact);
 app.get("/api/admin-contact-messages", adminContactMessages);
+app.get("/api/blogs", blogs);
+app.all("/api/admin-blogs", adminBlogs);
 
 const PORT = process.env.API_PORT || 3002;
 app.listen(PORT, () => {

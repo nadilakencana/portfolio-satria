@@ -56,4 +56,22 @@ function ensureContactTable() {
   return ensuredContact;
 }
 
-module.exports = { sql, ensureTable, ensureContactTable };
+let ensuredBlog = null;
+function ensureBlogTable() {
+  if (!ensuredBlog) {
+    ensuredBlog = sql`
+      CREATE TABLE IF NOT EXISTS blogs (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        image TEXT,
+        source_link TEXT,
+        description TEXT,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      )
+    `;
+  }
+  return ensuredBlog;
+}
+
+module.exports = { sql, ensureTable, ensureContactTable, ensureBlogTable };
